@@ -1,7 +1,3 @@
-Aqui está um exemplo de README para o projeto **FacialRecognition** com base no estilo do README do OhanaSafeGuard - Front-End:
-
----
-
 # FacialRecognition - Sistema de Reconhecimento Facial 🖼️👤
 
 ## 📝 Sobre
