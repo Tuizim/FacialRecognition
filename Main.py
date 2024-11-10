@@ -1,5 +1,4 @@
-import Camera_control_cnn as ccnn
+import Camera_detect
 
-if __name__ == "__main__":
-    cameraCNN= ccnn.CameraControlCNN()
-    cameraCNN.start()
+camera = Camera_detect.Camera_detect()
+camera.start()
