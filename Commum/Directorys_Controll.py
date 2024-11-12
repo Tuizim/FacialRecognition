@@ -12,7 +12,7 @@ def clear_directory(directory_path):
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
             except Exception as e:
-                print(sysMsg.Messages.Errors.DirError.CANT_DELETE +':'+e)
+                print(sysMsg.Messages.Errors.DirError.CANT_DELETE + ':' + str(e))
     else:
         print(sysMsg.Messages.Errors.DirError.NOT_EXIST)
         

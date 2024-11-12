@@ -15,7 +15,7 @@ class Image_detector:
                     image = cv2.imread(globalVars.global_image_save_path)
                     face = self.cnnDetector.face_detect(image)
                 except Exception as ex:
-                    print(sysMsg.Messages.Errors.ImageError.NOT_ACCESS +':'+ ex)         
+                    print(sysMsg.Messages.Errors.ImageError.NOT_ACCESS + ':' + str(ex))      
                 finally:
                     globalVars.global_image_save_path=None
             time.sleep(0.1)                

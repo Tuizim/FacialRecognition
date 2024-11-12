@@ -55,18 +55,20 @@ class Camera_detect:
         cv2.rectangle(frame,start_point,end_point,rectangle_color,2)
 
     def capture_image(self, frame, qntFaces):
-        if self.tryDetect < self.camera_fps and qntFaces==1:
-            self.tryDetect+=1
-        elif qntFaces!=1:
-            self.tryDetect =0
-        else:
-            if not os.path.exists("./captured_images"):
-                os.makedirs("./captured_images")
-            path = DC.get_master_dir()+'\\captured_images'
-            imageName = '\\captured.jpg'
-            DC.clear_directory(path)
-            cv2.imwrite(path + imageName, frame)
-            self.image_captured=True
-            
-            globalVars.global_image_save_path = path + imageName
-            
+        try:
+            if self.tryDetect < self.camera_fps and qntFaces == 1:
+                self.tryDetect += 1
+            elif qntFaces != 1:
+                self.tryDetect = 0
+            else:
+                if not os.path.exists("./captured_images"):
+                    os.makedirs("./captured_images")
+                path = DC.get_master_dir() + '\\captured_images'
+                imageName = '\\captured.jpg'
+                DC.clear_directory(path)
+                cv2.imwrite(path + imageName, frame)
+                self.image_captured = True
+                globalVars.global_image_save_path = path + imageName
+        except Exception as e:
+            print(msgSys.Messages.Errors.GENERIC_ERROR + ':' + str(e))
+                
