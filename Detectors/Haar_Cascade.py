@@ -1,5 +1,5 @@
 import cv2
-import Resources.Message_ressources as msgSys
+import Resources.Message_Ressources as msgSys
 class Haar:
     def __init__(self):
         self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')

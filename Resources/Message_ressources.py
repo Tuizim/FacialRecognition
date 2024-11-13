@@ -9,6 +9,10 @@ class Messages:
         class DirError:
             CANT_DELETE= "Falha ao deletar."
             NOT_EXIST= "O diretório especificado não existe ou não é um diretório válido."
+        class JsonError:
+            DECODE_ERROR= "Erro ao decodificar o arquivo JSON."
+        class TerminalError:
+            INVALID_VALUE= "Valor invalido"
     class Success:
         GENERIC_SUCCESS= "Sucesso!"
     class Warming:

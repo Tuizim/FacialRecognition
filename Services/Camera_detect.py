@@ -1,9 +1,9 @@
 import os
 import cv2
-import Resources.Message_ressources as msgSys
+import Resources.Message_Ressources as msgSys
 from Detectors.Haar_Cascade import Haar
 import Commum.Directorys_Controll as DC
-import Commum.globalVars as globalVars
+import Commum.Global_Vars as Global_Vars
 
 class Camera_detect:
     def __init__(self):
@@ -13,7 +13,6 @@ class Camera_detect:
         self.video = cv2.VideoCapture(0)
         if not self.video.isOpened():
             print(msgSys.Messages.Errors.CameraError.NOT_OPPENED)
-            exit()
         self.camera_fps = self.video.get(cv2.CAP_PROP_FPS)
     
     def start(self):
@@ -31,12 +30,12 @@ class Camera_detect:
                 self.capture_image(frame,anyFace)
             
             if cv2.waitKey(1) & 0xFF == ord('q'):
+                self.running==False
                 break
         
         self.running=False
         self.video.release()
         cv2.destroyAllWindows()
-        
     def draw_retangle(self,anyFaces,frame):
         COLOR_SUCCESS= (0, 255, 0)
         COLOR_FAIL= (0, 0, 255)
@@ -53,7 +52,6 @@ class Camera_detect:
         else:
             rectangle_color = COLOR_NONE
         cv2.rectangle(frame,start_point,end_point,rectangle_color,2)
-
     def capture_image(self, frame, qntFaces):
         try:
             if self.tryDetect < self.camera_fps and qntFaces == 1:
@@ -68,7 +66,7 @@ class Camera_detect:
                 DC.clear_directory(path)
                 cv2.imwrite(path + imageName, frame)
                 self.image_captured = True
-                globalVars.global_image_save_path = path + imageName
+                Global_Vars.global_image_save_path = path + imageName
         except Exception as e:
             print(msgSys.Messages.Errors.GENERIC_ERROR + ':' + str(e))
                 

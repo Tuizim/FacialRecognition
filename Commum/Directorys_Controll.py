@@ -1,6 +1,6 @@
 import os
 import shutil
-import Resources.Message_ressources as sysMsg
+import Resources.Message_Ressources as sysMsg
 
 def clear_directory(directory_path):
     if os.path.exists(directory_path) and os.path.isdir(directory_path):

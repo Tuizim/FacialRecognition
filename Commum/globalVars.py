@@ -1,1 +1,0 @@
-global_image_save_path = None
