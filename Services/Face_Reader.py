@@ -8,10 +8,12 @@ import Commum.Json_Controll as jsonC
 from Classes.Credential import Credential
 
 class Face_Reader:
-    def read_image(self,user:Credential):
+    def read_image(self,user:Credential=None):
         while True:
             if Global_Vars.global_image_save_path != None:
                 try:
+                    if user == None:
+                        user = Credential(name=None,cpf=None,status=None,face=None)
                     embedding=PDMTcnn.get_face_embedding(Global_Vars.global_image_save_path)
                     user.face = embedding
                 except Exception as ex:
@@ -23,7 +25,20 @@ class Face_Reader:
     def write_embedding(self,user):
         Jsondir=DC.get_master_dir()+"\\Data\\"+Global_Vars.JSON_EMBEDDING
         jsonC.Write_Json(dir=Jsondir,data=user.__dict__)
-    def face_compare(self,user):
-        Jsondir=DC.get_master_dir()+"\\Data\\"+Global_Vars.JSON_EMBEDDING
-        teste = jsonC.Read_Json(Jsondir)
-        return teste
+    def face_compare(self,user:Credential):
+        jsondir=DC.get_master_dir()+"\\Data\\"+Global_Vars.JSON_EMBEDDING
+        jsonlines = jsonC.Read_Json(jsondir)
+        credentials=[]
+        for line in jsonlines:
+            credential = Credential(
+                name=line["name"],
+                cpf=line["cpf"],
+                status=line["status"],
+                face=line["face"],
+            )
+            credentials.append(credential)
+        if len(credentials)>0:
+            for credential in credentials:
+                isCompatible = PDMTcnn.find_if_is_face(user.face,credential.face)
+                if isCompatible:
+                    return credential
