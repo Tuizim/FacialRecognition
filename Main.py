@@ -1,27 +1,24 @@
-import cv2
 import time
 import threading
-import os
-from Detectors.MTCNN import Mtcnn
-import Commum.Directorys_Controll as DC
-from Services.Camera_detect import Camera_detect
-from Services.Face_Reader import Face_Reader
+import Services.Face_Reader as faceReader
 import Commum.terminal_Controll as TC
 import Resources.Message_Ressources as sysMsg
 from Classes.Credential import Credential
-
+from Detectors.MTCNN import mtcnnDetector
 
 def start_camera():
-    camera.start()
+    mtcnn.start()
 
 def start_image_detection_register(user: Credential):
-    user = image_detector.read_image(user)
-    image_detector.write_embedding(user=user)
-    camera.running=False
+    register = faceReader.register_face(user)
+    if register:
+        mtcnn.running=False
 
 def start_image_detection_finder():
-    user = image_detector.read_image()
-    image_detector.face_compare(user)
+    user:Credential=faceReader.execute_recognizer()
+    if user !=None:
+        TC.clear_terminal()
+        print("Bem vindo ",user.name)
 
 def Create_User(user: Credential):
     thread1 = threading.Thread(target=start_camera)
@@ -32,7 +29,7 @@ def Create_User(user: Credential):
     thread2.daemon = True
     thread2.start()
     try:
-        while camera.running:
+        while mtcnn.running:
             time.sleep(1)
     except KeyboardInterrupt:
         print("Encerrando o programa.")
@@ -47,14 +44,13 @@ def Verify_User():
     thread2.start()
     
     try:
-        while camera.running:
+        while mtcnn.running:
             time.sleep(1)
     except KeyboardInterrupt:
         print("Encerrando o programa.")
 
 while True:
-    camera = Camera_detect()
-    image_detector = Face_Reader()
+    mtcnn = mtcnnDetector()
     TC.clear_terminal()
     print(TC.TERMINAL_MESSAGE_MENU)
     menuSelected = int(input('R:'))

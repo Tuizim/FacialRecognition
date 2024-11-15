@@ -1,11 +1,12 @@
-from deepface import DeepFace
+import cv2
 import numpy as np
+from insightface.app import FaceAnalysis
 
 def get_face_embedding(image_path):
-    embedding = DeepFace.represent(img_path=image_path, model_name="Facenet", detector_backend="mtcnn")
-    return embedding[0]["embedding"] if embedding else None
+    app= FaceAnalysis(name='buffalo_l')
+    app.prepare(ctx_id=0)
+    image = cv2.imread(image_path)
+    faces = app.get(image)
+    return faces[0].embedding.tolist()
 
-def find_if_is_face(embedding1,embedding2):
-    euclidean_distance= np.linalg.norm(np.array(embedding1) - np.array(embedding2))
-    return euclidean_distance < 0.6
     
