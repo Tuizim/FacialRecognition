@@ -1,7 +1,7 @@
 import os
 import cv2
 import time
-import Detectors.DeepFace_MTCNN as PDMTcnn
+import Detectors.FaceAnalysis as PDMTcnn
 import Commum.Directorys_Controll as DC
 import Commum.Global_Vars as Global_Vars
 import Resources.Message_Ressources as sysMsg

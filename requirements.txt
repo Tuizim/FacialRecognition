@@ -3,3 +3,4 @@ opencv-python
 scipy
 mtcnn
 insightface
+InquirerPy

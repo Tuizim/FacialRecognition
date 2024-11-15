@@ -11,7 +11,10 @@ class mtcnnDetector():
         self.running = True
         self.last_keypoints = None
         self.start_time = None
-
+    def reset_atributtes(self):
+        self.running = True
+        self.last_keypoints = None
+        self.start_time = None
     def is_face_frontal(self, keypoints, tolerance=0.05):
         left_eye = keypoints['left_eye']
         right_eye = keypoints['right_eye']

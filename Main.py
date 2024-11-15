@@ -6,6 +6,8 @@ import Resources.Message_Ressources as sysMsg
 from Classes.Credential import Credential
 from Detectors.MTCNN import mtcnnDetector
 
+
+
 def start_camera():
     mtcnn.start()
 
@@ -51,27 +53,30 @@ def Verify_User():
     except KeyboardInterrupt:
         print("Encerrando o programa.")
 
-while True:
-    mtcnn = mtcnnDetector()
-    TC.clear_terminal()
-    print(TC.TERMINAL_MESSAGE_MENU)
-    menuSelected = int(input('R:'))
-    TC.clear_terminal()
-    try:
-        if menuSelected==1:
-            name = str(input(TC.TERMINAL_MESSAGE_REGISTER_NAME))
-            cpf = str(input(TC.TERMINAL_MESSAGE_REGISTER_CPF))
-            status = bool(input(TC.TERMINAL_MESSAGE_REGISTER_STATUS))
-            user = Credential(name=name,cpf=cpf,status=status,face=None)
-            Create_User(user)
-        elif menuSelected == 2:
-            Verify_User()
-        elif menuSelected == 0:
-            exit()
-        else:
+def execute():
+    while True:
+        mtcnn.reset_atributtes()
+        TC.clear_terminal()
+        print(TC.TERMINAL_MESSAGE_MENU)
+        menuSelected = int(input('R:'))
+        TC.clear_terminal()
+        try:
+            if menuSelected==1:
+                name = str(input(TC.TERMINAL_MESSAGE_REGISTER_NAME))
+                cpf = str(input(TC.TERMINAL_MESSAGE_REGISTER_CPF))
+                status = bool(TC.status_user())
+                user = Credential(name=name,cpf=cpf,status=status,face=None)
+                Create_User(user)
+            elif menuSelected == 2:
+                Verify_User()
+            elif menuSelected == 0:
+                exit()
+            else:
+                print(sysMsg.Messages.Errors.TerminalError.INVALID_VALUE)
+            
+        except ValueError:
             print(sysMsg.Messages.Errors.TerminalError.INVALID_VALUE)
-        
-    except ValueError:
-        print(sysMsg.Messages.Errors.TerminalError.INVALID_VALUE)
 
-
+if __name__ == "__main__":
+    mtcnn = mtcnnDetector()
+    execute()

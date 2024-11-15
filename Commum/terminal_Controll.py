@@ -1,4 +1,6 @@
 import os
+from InquirerPy import prompt
+
 def clear_terminal():
     if os.name == 'nt':
         os.system('cls')
@@ -35,8 +37,6 @@ TERMINAL_MESSAGE_REGISTER_STATUS="""
 ═══════════════════════════════════════════════════════════════════
                         ──── STATUS ────
 ═══════════════════════════════════════════════════════════════════
-    1. Ativo
-    0. Inativo
 """
 TERMINAL_MESSAGE_VERIFY_FACE="""
 ═══════════════════════════════════════════════════════════════════
@@ -51,9 +51,21 @@ TERMINAL_MESSAGE_COMPLETED = """
 ═══════════════════════════════════════════════════════════════════
 """
 
-TERMINAL_MESSAGE_TRY_AGAIN="""]
+TERMINAL_MESSAGE_TRY_AGAIN="""
 ═══════════════════════════════════════════════════════════════════
                     ────    CONCLUIDO    ────
 ═══════════════════════════════════════════════════════════════════
 Tecle algo para tentar novamente
 """
+
+def status_user():
+    questions = [
+        {
+            "type": "list",
+            "message": TERMINAL_MESSAGE_REGISTER_STATUS,
+            "choices": ["Ativo", "Inativo"],
+            "name": "status"
+        }
+    ]
+    response = prompt(questions)
+    return True if response["status"] == "Ativo" else False
