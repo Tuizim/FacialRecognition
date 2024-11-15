@@ -41,6 +41,8 @@ def write_embedding(user):
 def user_finder_by_face(embedding):
     jsondir=DC.get_master_dir()+"\\Data\\"+Global_Vars.JSON_EMBEDDING
     jsonlines = jsonC.Read_Json(jsondir)
+    if len(jsonlines)==0:
+        return None
     credentials=[]
     for line in jsonlines:
         credential = Credential(

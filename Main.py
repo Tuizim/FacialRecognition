@@ -16,9 +16,11 @@ def start_image_detection_register(user: Credential):
 
 def start_image_detection_finder():
     user:Credential=faceReader.execute_recognizer()
+    TC.clear_terminal()
     if user !=None:
-        TC.clear_terminal()
         print("Bem vindo ",user.name)
+    tryagain = input(TC.TERMINAL_MESSAGE_TRY_AGAIN)
+    mtcnn.running=False
 
 def Create_User(user: Credential):
     thread1 = threading.Thread(target=start_camera)
