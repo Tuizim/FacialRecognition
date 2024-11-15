@@ -1,5 +1,5 @@
+numpy
 opencv-python
+scipy
 mtcnn
-tensorflow
-deepface
-tf-keras
+insightface
