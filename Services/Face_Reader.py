@@ -22,12 +22,12 @@ def read_image():
         if Global_Vars.global_image_save_path != None:
             try:
                 embedding= PDMTcnn.get_face_embedding(Global_Vars.global_image_save_path)
-            except Exception as ex:
-                print(sysMsg.Messages.Errors.ImageError.NOT_ACCESS + ':' + str(ex))      
-            finally:
                 os.remove(Global_Vars.global_image_save_path)
                 Global_Vars.global_image_save_path=None
                 return embedding
+            except Exception as ex:
+                print(sysMsg.Messages.Errors.ImageError.NOT_ACCESS + ':' + str(ex))     
+                return None
         time.sleep(0.1)
 
 def write_embedding(user):
@@ -39,12 +39,12 @@ def write_embedding(user):
         return False
 
 def user_finder_by_face(embedding):
-    jsondir=DC.get_master_dir()+"\\Data\\"+Global_Vars.JSON_EMBEDDING
-    jsonlines = jsonC.Read_Json(jsondir)
-    if len(jsonlines)==0:
+    jsonDir=DC.get_master_dir()+"\\Data\\"+Global_Vars.JSON_EMBEDDING
+    jsonLines = jsonC.Read_Json(jsonDir)
+    if jsonLines is None or len(jsonLines) == 0:
         return None
     credentials=[]
-    for line in jsonlines:
+    for line in jsonLines:
         credential = Credential(
             name=line["name"],
             cpf=line["cpf"],
@@ -68,11 +68,12 @@ def register_face(user:Credential):
             try:
                 user = construct_user(user)
                 write_embedding(user)
-            except Exception as ex:
-                print(sysMsg.Messages.Errors.ImageError.NOT_ACCESS + ':' + str(ex))      
-            finally:
                 Global_Vars.global_image_save_path=None
                 return True
+            except Exception as ex:
+                print(sysMsg.Messages.Errors.ImageError.NOT_ACCESS + ':' + str(ex))
+                Global_Vars.global_image_save_path=None
+                return False 
         time.sleep(0.1)
 
 def execute_recognizer():

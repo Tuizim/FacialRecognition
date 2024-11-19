@@ -19,3 +19,4 @@ class Messages:
         GENERIC_WARMING= "Atenção!"
         class CaptureWarming:
             MULT_FACE_DETECTED= "Mais de um rosto detectado"    
+        NOT_MATCHED="O rosto não coincidiu com nenhum dado registrado."

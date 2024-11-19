@@ -55,9 +55,9 @@ TERMINAL_MESSAGE_TRY_AGAIN="""
 ═══════════════════════════════════════════════════════════════════
                     ────    CONCLUIDO    ────
 ═══════════════════════════════════════════════════════════════════
-Tecle algo para tentar novamente
 """
 
+TERMINAL_MESSAGE_WRITE_SOMETHING="\nTecle algo para tentar novamente"
 def status_user():
     questions = [
         {

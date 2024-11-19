@@ -2,5 +2,7 @@ numpy
 opencv-python
 scipy
 mtcnn
-insightface
+insightface --only-binary=:all:
 InquirerPy
+tensorFlow
+onnrexonetime

@@ -21,10 +21,12 @@ def start_image_detection_finder():
     TC.clear_terminal()
     if user !=None:
         print("Bem vindo ",user.name)
-    tryagain = input(TC.TERMINAL_MESSAGE_TRY_AGAIN)
+    else:
+        print(sysMsg.Messages.Warming.NOT_MATCHED)
+    input(TC.TERMINAL_MESSAGE_TRY_AGAIN + TC.TERMINAL_MESSAGE_WRITE_SOMETHING)
     mtcnn.running=False
 
-def Create_User(user: Credential):
+def Create_user(user: Credential):
     thread1 = threading.Thread(target=start_camera)
     thread1.daemon = True
     thread1.start()
@@ -38,7 +40,7 @@ def Create_User(user: Credential):
     except KeyboardInterrupt:
         print("Encerrando o programa.")
 
-def Verify_User():
+def Verify_user():
     thread1 = threading.Thread(target=start_camera)
     thread1.daemon = True
     thread1.start()
@@ -55,20 +57,20 @@ def Verify_User():
 
 def execute():
     while True:
-        mtcnn.reset_atributtes()
-        TC.clear_terminal()
-        print(TC.TERMINAL_MESSAGE_MENU)
-        menuSelected = int(input('R:'))
-        TC.clear_terminal()
         try:
+            mtcnn.reset_atributtes()
+            TC.clear_terminal()
+            print(TC.TERMINAL_MESSAGE_MENU)
+            menuSelected = int(input('R:'))
+            TC.clear_terminal()
             if menuSelected==1:
                 name = str(input(TC.TERMINAL_MESSAGE_REGISTER_NAME))
                 cpf = str(input(TC.TERMINAL_MESSAGE_REGISTER_CPF))
                 status = bool(TC.status_user())
                 user = Credential(name=name,cpf=cpf,status=status,face=None)
-                Create_User(user)
+                Create_user(user)
             elif menuSelected == 2:
-                Verify_User()
+                Verify_user()
             elif menuSelected == 0:
                 exit()
             else:
@@ -76,7 +78,7 @@ def execute():
             
         except ValueError:
             print(sysMsg.Messages.Errors.TerminalError.INVALID_VALUE)
-
+            input(TC.TERMINAL_MESSAGE_WRITE_SOMETHING)
 if __name__ == "__main__":
     mtcnn = mtcnnDetector()
     execute()
