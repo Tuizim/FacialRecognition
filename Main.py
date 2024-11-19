@@ -5,7 +5,7 @@ import Commum.terminal_Controll as TC
 import Resources.Message_Ressources as sysMsg
 from Classes.Credential import Credential
 from Detectors.MTCNN import mtcnnDetector
-
+import logging
 
 
 def start_camera():
@@ -20,9 +20,9 @@ def start_image_detection_finder():
     user:Credential=faceReader.execute_recognizer()
     TC.clear_terminal()
     if user !=None:
-        print("Bem vindo ",user.name)
+       print("Bem vindo {}".format(user.name))
     else:
-        print(sysMsg.Messages.Warming.NOT_MATCHED)
+        logging.warning(sysMsg.Messages.Warming.NOT_MATCHED)
     input(TC.TERMINAL_MESSAGE_TRY_AGAIN + TC.TERMINAL_MESSAGE_WRITE_SOMETHING)
     mtcnn.running=False
 
@@ -61,7 +61,8 @@ def execute():
             mtcnn.reset_atributtes()
             TC.clear_terminal()
             print(TC.TERMINAL_MESSAGE_MENU)
-            menuSelected = int(input('R:'))
+            menuSelected = input('R:')
+            menuSelected = int(menuSelected)
             TC.clear_terminal()
             if menuSelected==1:
                 name = str(input(TC.TERMINAL_MESSAGE_REGISTER_NAME))
@@ -74,10 +75,10 @@ def execute():
             elif menuSelected == 0:
                 exit()
             else:
-                print(sysMsg.Messages.Errors.TerminalError.INVALID_VALUE)
+                logging.error(sysMsg.Messages.Errors.TerminalError.INVALID_VALUE)
             
-        except ValueError:
-            print(sysMsg.Messages.Errors.TerminalError.INVALID_VALUE)
+        except Exception: 
+            logging.error(sysMsg.Messages.Errors.TerminalError.INVALID_VALUE)
             input(TC.TERMINAL_MESSAGE_WRITE_SOMETHING)
 if __name__ == "__main__":
     mtcnn = mtcnnDetector()

@@ -1,3 +1,4 @@
+import logging
 import os
 import cv2
 import time
@@ -26,7 +27,7 @@ def read_image():
                 Global_Vars.global_image_save_path=None
                 return embedding
             except Exception as ex:
-                print(sysMsg.Messages.Errors.ImageError.NOT_ACCESS + ':' + str(ex))     
+                logging.critical(sysMsg.Messages.Errors.ImageError.NOT_ACCESS)     
                 return None
         time.sleep(0.1)
 
@@ -70,8 +71,8 @@ def register_face(user:Credential):
                 write_embedding(user)
                 Global_Vars.global_image_save_path=None
                 return True
-            except Exception as ex:
-                print(sysMsg.Messages.Errors.ImageError.NOT_ACCESS + ':' + str(ex))
+            except Exception:
+                logging.critical(sysMsg.Messages.Errors.ImageError.NOT_ACCESS)
                 Global_Vars.global_image_save_path=None
                 return False 
         time.sleep(0.1)

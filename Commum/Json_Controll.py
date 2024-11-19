@@ -1,6 +1,7 @@
 import json
 import Resources.Message_Ressources as sysMsg
 import Commum.Directorys_Controll as DC
+import logging
 def Read_Json(dir):
     try:
         with open(dir,'r',encoding='utf-8') as file:
@@ -9,14 +10,14 @@ def Read_Json(dir):
                 files.append(json.loads(line.strip()))
             return files
     except FileNotFoundError:
-        print(sysMsg.Messages.Errors.DirError.NOT_EXIST)
+        logging.critical(sysMsg.Messages.Errors.DirError.NOT_EXIST)
         return None
     except json.JSONDecodeError:
-        print(sysMsg.Messages.Errors.JsonError.DECODE_ERROR)
+        logging.critical(sysMsg.Messages.Errors.JsonError.DECODE_ERROR)
         return None
 def Write_Json(dir,data):
     try:
         with open(dir,'a',encoding='utf-8') as file:
             file.write(json.dumps(data,ensure_ascii=False) + "\n")
     except Exception as e:
-        print(sysMsg.Messages.Errors.GENERIC_ERROR +':'+ str(e))
+        logging.critical(sysMsg.Messages.Errors.GENERIC_ERROR)
