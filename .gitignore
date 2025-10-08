@@ -1,0 +1,62 @@
+# ====== AMBIENTE PYTHON ======
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ====== AMBIENTE VIRTUAL ======
+venv/
+.env/
+env/
+ENV/
+.venv/
+
+# ====== DEPENDÊNCIAS E PACOTES ======
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ====== LOGS E SAÍDAS ======
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# ====== ARQUIVOS DE TESTE ======
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+htmlcov/
+.cache/
+
+# ====== CONFIGURAÇÕES DE IDE ======
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ====== SISTEMAS OPERACIONAIS ======
+.DS_Store
+Thumbs.db
+
+# ====== NOTEBOOKS ======
+.ipynb_checkpoints
+
+# ====== DOCKER ======
+*.pid
+*.pid.lock
+
+# ====== ARQUIVOS TEMPORÁRIOS ======
+tmp/
+temp/
+*.bak
+
+# ====== CONFIGURAÇÕES PRIVADAS ======
+*.env
+*.key
+*.pem

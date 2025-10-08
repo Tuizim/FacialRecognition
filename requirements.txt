@@ -5,4 +5,5 @@ mtcnn
 insightface --only-binary=:all:
 InquirerPy
 tensorFlow
-onnrexonetime
+onnxruntime
+insightface
